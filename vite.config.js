@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 import { resolve } from 'path';
 import handlebars from 'vite-plugin-handlebars';
 import tailwindcss from '@tailwindcss/vite';
+import eslintPlugin from 'vite-plugin-eslint';
 import viteImagemin from 'vite-plugin-imagemin';
 import siteDataJson from './src/_data/siteData.json';
 import pageDataJson from './src/_data/pageData.json';
@@ -74,6 +75,14 @@ export default defineConfig({
       },
       // 開発サーバ中は実行不要なら以下を追加してビルド時のみ有効化
       // apply: 'build',
+    }),
+    eslintPlugin({
+      // save 時だけ走らせる
+      emitWarning: true,
+      emitError: false,
+      failOnError: false,
+      // キャッシュ有効化で 2 回目以降は速い
+      cache: true,
     }),
   ],
   build: {
