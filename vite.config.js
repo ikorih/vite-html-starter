@@ -15,6 +15,7 @@ import postcssConditionals from 'postcss-conditionals';
 import postcssCustomMedia from 'postcss-custom-media';
 import postcssCustomProperties from 'postcss-custom-properties';
 import postcssGlobalData from '@csstools/postcss-global-data';
+import commentParser from 'postcss-comment'; // parser
 
 export default defineConfig({
   // base: '/src', //ルートパスの設定
@@ -113,6 +114,7 @@ export default defineConfig({
       localsConvention: 'camelCaseOnly',
     },
     postcss: {
+      parser: commentParser, // // から始まるインラインコメントを CSS で使う
       plugins: [
         postcssImport(),
         postcssGlobalData({
