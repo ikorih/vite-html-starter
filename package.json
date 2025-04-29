@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "img:webp": "imagemin \"src/assets/img/*.{jpg,jpeg,png}\" --plugin=webp --out-dir=\"src/assets/webp\"",
+    "img:watch": "onchange \"src/assets/img/*.{jpg,jpeg,png}\" -- npm run img:webp",
+    "dev": "npm run img:webp && concurrently \"npm run img:watch\" \"vite dev\"",
     "build": "vite build",
     "preview": "vite preview",
     "markuplint": "markuplint \"./src/**/*.{html,hbs,bue,jsx,tsx}\""
@@ -14,7 +16,11 @@
     "@markuplint/mustache-parser": "^4.6.19",
     "@tailwindcss/vite": "^4.1.4",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.1.2",
+    "imagemin-cli": "^8.0.0",
+    "imagemin-webp": "^8.0.0",
     "markuplint": "^4.12.0",
+    "onchange": "^7.1.0",
     "postcss-advanced-variables": "^5.0.0",
     "postcss-conditionals": "^2.1.0",
     "postcss-custom-media": "^11.0.5",
@@ -27,7 +33,8 @@
     "sass-embedded": "^1.87.0",
     "tailwindcss": "^4.1.4",
     "vite": "^6.3.1",
-    "vite-plugin-handlebars": "^2.0.0"
+    "vite-plugin-handlebars": "^2.0.0",
+    "vite-plugin-imagemin": "^0.6.1"
   },
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
