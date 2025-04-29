@@ -1,0 +1,7 @@
+{
+  "extends": ["markuplint:recommended"],
+  "parser": {
+    ".mustache$|.hbs$|.html$": "@markuplint/mustache-parser"
+  },
+  "rules": {}
+}

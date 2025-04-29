@@ -1,0 +1,4 @@
+@custom-media --media-tablet (min-width: 768px);
+@custom-media --media-pc (min-width: 990px);
+@custom-media --media-widescreen (min-width: 1440px);
+@custom-media --media-max (min-width: 1920px);

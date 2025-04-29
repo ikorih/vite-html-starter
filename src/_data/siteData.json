@@ -1,0 +1,13 @@
+{
+  "siteName": "HTML サンプルサイト",
+  "siteUrl": "https://example.com",
+  "siteMeta": {
+    "description": "description",
+    "keywords": "keywords",
+    "ogUrl": "http://hogehoge.com/",
+    "ogImg": "http://hogehoge.com/img/ogp.jpg"
+  },
+  "media": {
+    "sp": "screen and (max-width: 767.98px)"
+  }
+}

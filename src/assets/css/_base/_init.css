@@ -1,0 +1,12 @@
+html {
+  font-size: calc(100 / 375 * 10vw);
+  @media (--media-tablet) {
+    font-size: 43%;
+  }
+  @media (--media-pc) {
+    font-size: calc(100 / 1440 * 10vw);
+  }
+  @media (--media-max) {
+    font-size: 83.5%;
+  }
+}
