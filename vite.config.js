@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import handlebars from 'vite-plugin-handlebars';
 import tailwindcss from '@tailwindcss/vite';
 import eslintPlugin from 'vite-plugin-eslint';
+import { MLEngine } from 'markuplint';
 import viteImagemin from 'vite-plugin-imagemin';
 import siteDataJson from './src/_data/siteData.json';
 import pageDataJson from './src/_data/pageData.json';
@@ -84,6 +85,54 @@ export default defineConfig({
       // キャッシュ有効化で 2 回目以降は速い
       cache: true,
     }),
+    {
+      name: 'vite-plugin-markuplint-custom',
+      enforce: 'pre',
+
+      // index.html を処理するフック
+      transformIndexHtml: {
+        // order: 'pre', // 必要なら
+        async handler(html, ctx) {
+          const relPath = ctx.path.replace(/^\//, '');
+          const filePath = resolve(process.cwd(), 'src', relPath);
+
+          const mlFile = await MLEngine.toMLFile(filePath);
+          const engine = new MLEngine(mlFile);
+          const result = await engine.exec();
+          if (result) {
+            for (const v of result.violations) {
+              const msg = `${filePath}:${v.line}:${v.column} ${v.message}`;
+              // dev サーバー起動時は Vite のロガーを使う
+              if (ctx.server) {
+                ctx.server.config.logger.warn(msg);
+              } else {
+                // build 時やサーバーがない場合は普通にコンソールへ
+                console.warn(msg);
+              }
+            }
+          }
+          return html;
+        },
+      },
+
+      // Nunjucks 等のテンプレート（.njk/.hbs）向け
+      async transform(code, id) {
+        const clean = id.split('?')[0];
+        if (!/\.(njk|hbs)$/.test(clean)) return null;
+        const rel = clean.replace(/^\//, '');
+        const filePath = resolve(process.cwd(), 'src', rel);
+
+        const mlFile = await MLEngine.toMLFile(filePath);
+        const engine = new MLEngine(mlFile);
+        const result = await engine.exec();
+        if (result) {
+          for (const v of result.violations) {
+            // こちらは transform フックなので this.warn が使えます
+            this.warn(`${filePath}:${v.line}:${v.column} ${v.message}`);
+          }
+        }
+        return null;
+      },
   ],
   build: {
     outDir: '../dist', // 出力先ディレクトリを "dist" に設定
