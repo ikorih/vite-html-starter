@@ -1,3 +1,5 @@
-{{> _organisms/header }}
-<p class="py-4">中身</p>
-{{> _organisms/footer }}
+{{#extend "_templates/_default"}}
+  {{#content "body"}}
+    <p>test</p>
+  {{/content}}
+{{/extend}}

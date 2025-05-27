@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{siteData.siteName}}</title>
+    <meta name="description" content="{{siteData.siteMeta.description}}"/>
+    <link rel="stylesheet" href="{{assetsPath}}css/style.css" />
+  </head>
+  <body>
+    <a class="sr-only" href="#content">本文へ移動</a>
+    <!-- header -->
+    {{> _layouts/header }}
+    <!-- /header -->
+    <main id="content" class="c-main">
+      <!-- main -->
+      {{#block "body"}}{{/block}}
+      <!-- /main -->
+    </main>
+    <!-- footer -->
+    {{> _layouts/footer }}
+    <!-- /footer -->
+    <script type="module" src="{{assetsPath}}js/app.js"></script>
+  </body>
+</html>
