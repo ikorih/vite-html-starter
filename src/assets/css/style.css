@@ -12,9 +12,8 @@
 * Config
 * ================================================== */
 @import 'tailwindcss';
-@source '../../src/';
+@import './_config/_custom-media.css';
 @import './_config/_theme.css';
-@import './_config/_mixins.css';
 
 /* =====================================================
 * Base
