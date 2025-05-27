@@ -1,6 +1,8 @@
 @theme {
   --spacing: 1rem;
 
+  --breakpoint-pc: 990px;
+
   --default-font-feature-settings: 'pwid' 1;
 
   --width-max: 1920px;
